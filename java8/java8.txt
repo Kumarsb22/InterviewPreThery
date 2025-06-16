@@ -1,0 +1,326 @@
+Here's a complete and **in-depth list of Java 8 interview questions and answers** tailored for **7+ years of experience**, covering both **theory and real-time scenarios** commonly asked in product-based companies like Infosys, TCS Digital, Cognizant, Capgemini, etc.
+
+---
+
+## ✅ **1. What are the key features introduced in Java 8?**
+
+### ✅ Answer:
+
+* **Lambda Expressions**
+* **Functional Interfaces**
+* **Streams API**
+* **Default and Static Methods in Interfaces**
+* **Optional Class**
+* **Method and Constructor References**
+* **New Date and Time API (`java.time`)**
+* **CompletableFuture & Concurrency improvements**
+* **Collectors and reduction operations**
+* **Nashorn JavaScript engine (deprecated later)**
+
+---
+
+## ✅ **2. What is a Functional Interface?**
+
+### ✅ Answer:
+
+A functional interface is an interface with **only one abstract method**.
+
+📌 Java 8 introduced the `@FunctionalInterface` annotation to mark them.
+
+Example:
+
+```java
+@FunctionalInterface
+interface MyFunc {
+    void doSomething();
+}
+```
+
+---
+
+## ✅ **3. What is a Lambda Expression?**
+
+### ✅ Answer:
+
+Lambda expressions provide a **concise way to represent anonymous methods** (functions) using a functional interface.
+
+Example:
+
+```java
+List<String> names = Arrays.asList("Ram", "Shyam", "Mohan");
+names.forEach(name -> System.out.println(name));
+```
+
+**Syntax:**
+
+```java
+(parameters) -> expression or { statements }
+```
+
+---
+
+## ✅ **4. Difference between Lambda and Anonymous Inner Class**
+
+| Feature                    | Lambda                    | Anonymous Inner Class       |
+| -------------------------- | ------------------------- | --------------------------- |
+| Syntax                     | Concise                   | Verbose                     |
+| `this` reference           | Refers to enclosing class | Refers to anonymous class   |
+| Can access default methods | Yes                       | No                          |
+| Target                     | Functional Interface only | Can implement any interface |
+
+---
+
+## ✅ **5. What is the Stream API in Java 8?**
+
+### ✅ Answer:
+
+The Stream API provides **functional-style operations** on collections (like map, filter, reduce).
+
+Example:
+
+```java
+List<Integer> even = list.stream()
+                         .filter(i -> i % 2 == 0)
+                         .collect(Collectors.toList());
+```
+
+---
+
+## ✅ **6. Difference between Stream API and Collections**
+
+| Feature     | Stream API                           | Collections                      |
+| ----------- | ------------------------------------ | -------------------------------- |
+| Purpose     | Functional-style processing          | Data storage                     |
+| Immutable   | Stream is immutable                  | Collections are mutable          |
+| Operations  | Supports map, filter, reduce, etc.   | Does not support such operations |
+| Consumption | Stream can't be reused once consumed | Collection can be reused         |
+
+---
+
+## ✅ **7. What is the difference between `map()` and `flatMap()`?**
+
+### ✅ Answer:
+
+* `map()` transforms each element.
+* `flatMap()` flattens nested structures.
+
+```java
+// map() — Stream<Stream<String>>
+list.stream().map(s -> Arrays.stream(s.split("")));
+
+// flatMap() — Stream<String>
+list.stream().flatMap(s -> Arrays.stream(s.split("")));
+```
+
+---
+
+## ✅ **8. What are Intermediate and Terminal operations in Stream API?**
+
+### ✅ Answer:
+
+| Intermediate Ops                                                                  | Terminal Ops                            |
+| --------------------------------------------------------------------------------- | --------------------------------------- |
+| map(), filter(), sorted()                                                         | collect(), forEach(), reduce(), count() |
+| 📌 Intermediate ops are **lazy**, they don't process until terminal op is called. |                                         |
+
+---
+
+## ✅ **9. What is the Optional class?**
+
+### ✅ Answer:
+
+`Optional<T>` is a container to avoid **NullPointerException**.
+
+```java
+Optional<String> name = Optional.of("Ram");
+name.ifPresent(System.out::println);
+```
+
+---
+
+## ✅ **10. Difference between `Optional.of()`, `Optional.ofNullable()`, and `Optional.empty()`**
+
+| Method                     | Behavior                  |
+| -------------------------- | ------------------------- |
+| `Optional.of(obj)`         | Throws NPE if obj is null |
+| `Optional.ofNullable(obj)` | Accepts null              |
+| `Optional.empty()`         | Returns empty Optional    |
+
+---
+
+## ✅ **11. What is Method Reference in Java 8?**
+
+### ✅ Answer:
+
+A method reference is a shorthand for a lambda that calls an existing method.
+
+Example:
+
+```java
+list.forEach(System.out::println); // instead of list.forEach(s -> System.out.println(s))
+```
+
+Types:
+
+* `ClassName::staticMethod`
+* `object::instanceMethod`
+* `ClassName::instanceMethod`
+
+---
+
+## ✅ **12. What are default and static methods in interfaces?**
+
+### ✅ Answer:
+
+* **Default methods** allow adding new methods to interfaces without breaking existing code.
+
+```java
+interface MyInterface {
+    default void show() {
+        System.out.println("Default implementation");
+    }
+}
+```
+
+* **Static methods** can be called from interface name directly.
+
+---
+
+## ✅ **13. How does Java 8 support parallel processing?**
+
+### ✅ Answer:
+
+Using `parallelStream()`:
+
+```java
+list.parallelStream().forEach(System.out::println);
+```
+
+It uses **ForkJoinPool** for parallel execution.
+
+---
+
+## ✅ **14. What is the difference between `findFirst()` and `findAny()` in streams?**
+
+| Method    | Behavior                                                        |
+| --------- | --------------------------------------------------------------- |
+| findFirst | Returns first element in stream (deterministic)                 |
+| findAny   | May return any element (non-deterministic with parallel stream) |
+
+---
+
+## ✅ **15. What is Collectors.toMap() and possible issues?**
+
+### ✅ Answer:
+
+```java
+Map<String, Integer> map = list.stream()
+    .collect(Collectors.toMap(Person::getName, Person::getAge));
+```
+
+⚠️ Will throw `IllegalStateException` if keys are duplicated. To avoid:
+
+```java
+Collectors.toMap(key, value, (v1, v2) -> v1)
+```
+
+---
+
+## ✅ **16. How does `reduce()` work in Stream API?**
+
+### ✅ Answer:
+
+It reduces the stream to a single value.
+
+```java
+int sum = list.stream().reduce(0, (a, b) -> a + b);
+```
+
+---
+
+## ✅ **17. What is the new Date and Time API (`java.time`) in Java 8?**
+
+### ✅ Answer:
+
+Replaces `java.util.Date` with immutable and thread-safe classes:
+
+* `LocalDate`, `LocalTime`, `LocalDateTime`
+* `ZonedDateTime`
+* `Duration`, `Period`
+* `DateTimeFormatter`
+
+Example:
+
+```java
+LocalDate today = LocalDate.now();
+```
+
+---
+
+## ✅ **18. Real-time scenario: Convert List<Employee> to Map\<Id, Name>**
+
+```java
+Map<Integer, String> map = employeeList.stream()
+    .collect(Collectors.toMap(Employee::getId, Employee::getName));
+```
+
+---
+
+## ✅ **19. How to sort List by multiple fields using Java 8?**
+
+```java
+list.sort(Comparator.comparing(Employee::getName)
+           .thenComparing(Employee::getAge));
+```
+
+---
+
+## ✅ **20. How to handle checked exceptions in Lambda?**
+
+Java 8 lambdas can't throw checked exceptions directly. You must wrap or handle manually.
+
+Example:
+
+```java
+list.forEach(e -> {
+    try {
+        someMethodThatThrowsCheckedException(e);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+});
+```
+
+---
+
+## ✅ **21. Can we use `this` inside a lambda?**
+
+Yes. `this` refers to the **enclosing class**, unlike anonymous inner classes where `this` refers to the anonymous class itself.
+
+---
+
+## ✅ **22. Difference between Stream and ParallelStream**
+
+| Feature     | stream()            | parallelStream()            |
+| ----------- | ------------------- | --------------------------- |
+| Execution   | Sequential          | Parallel using ForkJoinPool |
+| Performance | Safe for small data | Better for large datasets   |
+| Debugging   | Easy                | Difficult                   |
+
+---
+
+## ✅ **23. Java 8 Interview Coding Task Examples**
+
+* Count frequency of characters using Stream
+* Find duplicate elements in List
+* Group employees by department
+* Sort a Map by value using Stream
+* Convert comma-separated String to List
+* Remove nulls from a list using stream
+* Use `filter()` + `map()` + `collect()` to transform DTOs
+
+---
+
+If you'd like, I can send a **PDF**, or build mock **coding rounds** based on Java 8 for practice.
+
+Would you like real-time coding problems or PDF cheat sheet next?
