@@ -1,0 +1,17 @@
+Yes, with 3.5 years of experience as a Java backend developer, you can certainly get a job in the current IT market. The demand for skilled Java developers remains strong, especially in enterprise environments, finance, and healthcare sectors. 
+However, the job market is competitive, and simply having basic Java knowledge is not enough to stand out. Companies expect mid-level developers (2-5 years experience) to have a strong grasp of core concepts and proficiency in an expanded tech stack. 
+Skills You Need to Learn/Enhance
+To increase your chances of securing a good role (especially in product-based companies), you should focus on the following skills:
+Microservices Architecture: Understand how to build small, independent services that form a large application. This is a key skill in modern application development.
+Cloud Technologies: Familiarity with major cloud providers like AWS, Azure, or Google Cloud Platform (GCP) is a significant advantage. This includes knowledge of compute services (EC2, Lambda), storage (S3), and relevant cloud-native tools.
+DevOps and CI/CD: Gain experience with containerization tools like Docker and orchestration platforms like Kubernetes. Knowledge of CI/CD pipelines using tools such as Jenkins or GitHub Actions is also highly valued for automated deployment.
+Asynchronous Messaging: Learn about message queues and event-driven design using tools like Kafka or RabbitMQ for building scalable and loosely coupled systems.
+System Design and Architecture: At the mid-level, you are expected to handle more complex problem-solving. A basic understanding of system design, including caching mechanisms (like Redis), load balancing, and database scaling, is important.
+Data Structures and Algorithms (DSA): Strong problem-solving skills, often assessed via DSA questions during interviews, are crucial for roles in top product companies. 
+What Companies Expect from Employees
+With 3.5 years of experience, companies generally expect you to move beyond entry-level tasks and take more ownership of your work. 
+Independent Module Ownership: The ability to work independently on backend systems, microservices, and integrations.
+Clean and Testable Code: A commitment to writing high-quality, efficient, and maintainable code, including unit and integration testing using frameworks like JUnit.
+Problem-Solving and Critical Thinking: The ability to analyze problems, debug complex issues, and develop effective, optimized solutions.
+Collaboration: Effective communication and teamwork skills to work seamlessly with front-end developers, QA testers, DevOps engineers, and product managers.
+Security Best Practices: Understanding common vulnerabilities (OWASP Top 10) and implementing secure authentication (OAuth, JWT) and data encryption methods. 

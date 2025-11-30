@@ -1,0 +1,357 @@
+Based on your uploaded resume
+
+Kumar_Balambeed_Java_Full_Stack…
+
+, here is the complete list of all IMPORTANT topics you must prepare for interviews.
+This list is 100% customized to your skills, projects, tech stack, and responsibilities mentioned in your resume.
+
+This is EXACTLY what interviewers will ask you.
+
+✅ 1. Core Java – HIGH PRIORITY
+
+Interviewers will definitely ask from here.
+
+Must-prepare topics
+
+OOPs Concepts (100% sure they ask)
+
+Collections Framework
+
+List, Set, Map differences
+
+HashMap internal working
+
+ConcurrentHashMap
+
+Fail-fast vs fail-safe
+
+Exception Handling
+
+Checked vs unchecked
+
+Custom exceptions
+
+Multithreading
+
+Thread lifecycle
+
+Runnable vs Callable
+
+ExecutorService
+
+Synchronization
+
+Deadlock & thread safety
+
+Java 8 Features
+
+Lambda expressions
+
+Functional interfaces
+
+Stream API
+
+Optional class
+
+Method references
+
+Additional Java
+
+JVM, JDK, JRE differences
+
+Garbage Collection basics
+
+Immutable objects
+
+String vs StringBuilder vs StringBuffer
+
+✅ 2. Spring Boot – HIGH PRIORITY (Your main strength)
+Important Topics
+
+Spring Boot Architecture
+
+Dependency Injection (IoC)
+
+Bean Lifecycle
+
+Stereotype annotations
+
+@Component, @Service, @Repository, @Controller
+
+@RestController
+
+@Autowired (field, setter, constructor injection)
+
+Spring Boot Auto-Configuration
+
+Spring Boot Starter dependencies
+
+Profiles & application.properties
+
+Actuator
+
+Exception Handling in Spring
+
+@ControllerAdvice
+
+@ExceptionHandler
+
+Validation (Hibernate Validator)
+
+Spring Boot Security (basic JWT understanding)
+
+✅ 3. Spring Data JPA (Your second strongest area)
+Topics to prepare
+
+JPA vs Hibernate
+
+Entity mappings
+
+@Entity, @Table, @Id, @GeneratedValue
+
+OneToOne, OneToMany, ManyToMany
+
+JPQL vs Native Query
+
+Pagination & Sorting
+
+Lazy vs Eager loading
+
+N+1 select problem
+
+Criteria API (basic knowledge)
+
+✅ 4. Microservices – VERY HIGH PRIORITY (Mentioned heavily in your resume)
+Must-know concepts
+
+What is a Microservice?
+
+Monolithic vs Microservices
+
+Why migration is done? (This is your biggest advantage from PUCC project)
+
+Service Discovery (Eureka)
+
+API Gateway (basic)
+
+Inter-service communication
+
+REST
+
+Feign Client
+
+Configuration Management
+
+Spring Cloud Config
+
+Circuit Breakers (Resilience4j)
+
+Distributed Logging
+
+ELK stack
+
+Fault tolerance
+
+Load balancing (Ribbon – basic)
+
+Expect scenario-based questions
+
+“How did you break monolithic modules into microservices?”
+
+“How did you manage database communication across services?”
+
+“How did you deploy microservices in Kubernetes?”
+
+✅ 5. SQL & Database Optimization (You mentioned 30% improvement)
+
+You MUST be ready to explain this.
+
+Important topics
+
+Joins (Inner, Left, Right, Full)
+
+Group By, Having
+
+Subqueries
+
+Indexing
+
+Query Optimization
+
+Transactions
+
+ACID
+
+Commit & rollback
+
+PostgreSQL specific basics
+
+Be ready to explain:
+
+What exact query you optimized?
+
+How did you achieve 30% improvement?
+(They WILL ask)
+
+✅ 6. REST APIs – MUST PREPARE
+Topics:
+
+HTTP Methods
+
+Status Codes
+
+Idempotency
+
+REST best practices
+
+Request/Response structure
+
+API versioning
+
+Exception handling in APIs
+
+Postman testing
+
+✅ 7. Docker & Kubernetes (You mentioned deployment on K8s)
+Docker
+
+Image vs Container
+
+Dockerfile
+
+Docker Compose (basics)
+
+Common Docker commands
+
+Kubernetes
+
+Pod
+
+Deployment
+
+Service
+
+ConfigMap
+
+Secrets
+
+They will ask:
+“How did you deploy microservices on Kubernetes in NIC project?”
+
+✅ 8. CI/CD – Jenkins
+
+What is CI/CD?
+
+Jenkins pipeline
+
+Webhooks
+
+SonarQube integration (You mentioned it)
+
+Build → Test → Deploy stages
+
+✅ 9. Logging & Monitoring (ELK Stack)
+
+Elasticsearch
+
+Logstash
+
+Kibana
+
+How you used ELK for production debugging
+
+✅ 10. Testing
+
+JUnit basics
+
+Mockito (Mock vs Spy)
+
+Test cases for Service Layer
+
+Integration testing basics
+
+✅ 11. Production Support & RCA
+
+(You have experience in NIC & Virtusa)
+
+Prepare answers for:
+
+What issues did you solve in production?
+
+How did you perform RCA?
+
+Tools used for debugging/logs
+
+Example of major production incident you resolved
+
+✅ 12. Project Deep Dive (Most Important)
+You must master two project explanations:
+✔ PUCC – Migration from Monolithic to Microservices
+
+You should prepare:
+
+Old architecture
+
+New architecture
+
+Steps of migration
+
+Microservices created
+
+Database changes
+
+Tools used
+
+Performance improvement
+
+Challenges
+
+✔ Citi StateStreet – Banking Application
+
+Prepare:
+
+Modules worked on
+
+Type of bugs fixed
+
+SQL optimization examples
+
+Production support scenarios
+
+⭐ Final Result:
+
+Here is the complete list of topics to prepare, grouped by priority:
+
+🔥 TOP PRIORITY
+
+Core Java
+
+Spring Boot
+
+Microservices
+
+SQL Optimization
+
+REST APIs
+
+JPA/Hibernate
+
+⚡ SECOND PRIORITY
+
+Docker
+
+Jenkins
+
+Kubernetes (basics)
+
+ELK
+
+Unit Testing
+
+⚙ ADDITIONAL TOPICS
+
+Git
+
+Maven
+
+AWS basics (if asked)
