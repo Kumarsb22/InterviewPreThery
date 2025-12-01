@@ -1,0 +1,271 @@
+✔ CORE JAVA IMPORTANT CONCEPTS – FULL INTERVIEW GUIDE
+🟦 1. CLASS – Important Concepts
+✔ Explanation
+
+A class is a blueprint / template used to create objects.
+It contains variables, methods, constructors, blocks, and nested classes.
+
+✔ Interview Questions & Answers
+Q1: What is a class in Java?
+
+A class is a user-defined blueprint that describes the behavior (methods) and properties (variables) of objects.
+
+Q2: What can a class contain?
+
+Fields (variables)
+
+Methods
+
+Constructors
+
+Static blocks
+
+Instance blocks
+
+Inner/nested classes
+
+Enums
+
+✔ Small Example
+class Employee {
+    int id;
+    String name;
+
+    void display() {
+        System.out.println(id + " " + name);
+    }
+}
+
+🟦 2. OBJECT – Important Concepts
+✔ Explanation
+
+An Object is an instance of a class created using new keyword.
+Object has state (variables) and behavior (methods).
+
+✔ Interview Questions
+Q1: How is an object created?
+Employee emp = new Employee();
+
+Q2: What is object memory stored?
+
+Object is stored in Heap, reference is in Stack.
+
+🟦 3. CONSTRUCTORS (Default, Parameterized, Private)
+✔ Explanation
+
+Default constructor → given by compiler if not defined.
+
+Parameterized constructor → passes value during object creation.
+
+Private constructor → restricts object creation (Singleton Pattern).
+
+✔ Example
+class A {
+    A() { System.out.println("Default"); }
+    A(int x) { System.out.println("Parameterized: " + x); }
+    private A(String s) { System.out.println("Private"); }
+}
+
+✔ Important Interview Questions
+Q1: Why private constructor?
+
+To prevent object creation from outside (Singleton pattern).
+
+Q2: Can constructor be final/static?
+
+No. Constructors cannot be static, final, or abstract.
+
+🟦 4. this & super Keyword
+✔ this keyword
+
+Used to refer to current class object.
+
+Usage:
+
+Access instance variable
+
+Call current class method
+
+Call constructor (this())
+
+✔ super keyword
+
+Used to refer parent class.
+
+Call parent variable
+
+Call parent method
+
+Call parent constructor (super())
+
+✔ Example
+class Parent {
+    int a = 10;
+}
+
+class Child extends Parent {
+    int a = 20;
+    void print() {
+        System.out.println(super.a);
+        System.out.println(this.a);
+    }
+}
+
+🟦 5. Static (variable, method, block)
+✔ Static Variable
+
+Shared across all objects.
+
+✔ Static Method
+
+Belongs to class, not objects.
+Cannot access non-static members directly.
+
+✔ Static Block
+
+Runs once when class loads.
+
+Example
+class Test {
+    static int count = 0;
+
+    static {
+        System.out.println("Static Block");
+    }
+
+    static void show() {
+        System.out.println("Static Method");
+    }
+}
+
+✔ Interview Questions
+Q1: Can static method access non-static variable?
+
+No, because non-static requires an object.
+
+Q2: Order of execution?
+
+Static block
+
+Instance block
+
+Constructor
+
+🟦 6. Instance Block
+✔ Explanation
+
+Instance Initialization Block (IIB) runs before constructor during object creation.
+
+✔ Example
+class Test {
+    {
+        System.out.println("Instance Block");
+    }
+    Test() {
+        System.out.println("Constructor");
+    }
+}
+
+
+Output:
+Instance Block
+Constructor
+
+✔ NEXT PARTS (Highly Important for Interviews)
+
+I will cover EVERYTHING in detail similar to above:
+
+🔜 Coming Topics (as you requested):
+✔ OOPS (Full explanation)
+
+Inheritance
+
+Polymorphism
+
+Abstraction
+
+Encapsulation
+
+Association / Aggregation / Composition
+
+Overloading vs Overriding
+
+final keyword
+
+Interfaces and default methods
+
+Abstract classes vs Interfaces
+
+Deep vs Shallow copy
+
+Immutable classes
+
+✔ Exception Handling
+
+try/catch/finally
+
+Custom exception
+
+Checked vs Unchecked
+
+Throws vs throw
+
+Multi-catch
+
+Try-with-resources
+
+✔ Collections Framework
+
+List, Set, Map hierarchy
+
+HashMap internal working
+
+HashSet working (hashCode & equals)
+
+Fail-fast vs Fail-safe
+
+ConcurrentHashMap
+
+Comparator vs Comparable
+
+✔ Java 8, 11, 17 Important Concepts
+
+Stream API
+
+Functional Interfaces
+
+Lambda
+
+Method Reference
+
+Optional
+
+Default & Static interface methods
+
+Sealed Classes (Java 17)
+
+Virtual Threads (Java 21 if needed)
+
+Records (Java 16+)
+
+Text blocks
+
+✔ Multithreading
+
+Thread lifecycle
+
+Thread creation
+
+Synchronization
+
+Locks
+
+Executors
+
+CompletableFuture
+
+Deadlock, Livelock
+
+Concurrent Collections
+
+Atomic variables

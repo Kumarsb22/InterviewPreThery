@@ -1,0 +1,256 @@
+Below is a complete, interview-oriented, deep explanation of Inheritance with examples, rules, and real interview questions asked repeatedly in companies like Infosys, TCS, Accenture, Wipro, Cognizant.
+
+I’ll explain slowly and clearly (Indian English style).
+
+✔ 1. INHERITANCE – Complete Explanation
+
+Inheritance allows one class (child) to reuse properties & methods of another class (parent).
+
+Parent class → Superclass
+Child class → Subclass
+
+We use extends keyword.
+
+🟦 Types of Inheritance in Java
+✔ 1. Single Inheritance
+
+One parent → one child
+
+A → B
+
+class A {
+    void showA() { System.out.println("A"); }
+}
+class B extends A {
+    void showB() { System.out.println("B"); }
+}
+
+✔ 2. Multilevel Inheritance
+
+A → B → C
+
+class A {}
+class B extends A {}
+class C extends B {}
+
+✔ 3. Hierarchical Inheritance
+
+One parent → multiple children
+
+class A {}
+class B extends A {}
+class C extends A {}
+
+🟥 Why Multiple Inheritance (Class A extends B, C) is NOT Supported?
+✔ Real Reason – The Diamond Problem
+    A
+   / \
+  B   C
+   \ /
+    D
+
+
+If B and C have same method, D will be confused:
+
+class A { void show(){} }
+class B extends A {}
+class C extends A {}
+class D extends B, C { }  // ❌ ERROR (which show() to inherit?)
+
+✔ Java avoids ambiguity → keeps code simple
+
+Interfaces allow multiple inheritance safely (no state, no confusion).
+
+🟦 extends Keyword
+
+Used to:
+
+✔ inherit variables
+✔ inherit methods
+✔ override parent methods
+✔ perform constructor chaining
+✔ reuse behavior and reduce duplication
+
+Syntax:
+
+class Child extends Parent {}
+
+🟦 Constructor Chaining
+
+Constructors always call parent constructor first using super().
+
+✔ Rule 1
+
+If you don’t write super(), compiler adds super() automatically.
+
+👉 Example
+class Parent {
+    Parent() { System.out.println("Parent Constructor"); }
+}
+
+class Child extends Parent {
+    Child() { System.out.println("Child Constructor"); }
+}
+
+
+Output:
+Parent Constructor
+Child Constructor
+
+✔ Calling a specific parent constructor
+
+Using super(args)
+
+class Parent {
+    Parent(int x) { System.out.println("Parent: " + x); }
+}
+
+class Child extends Parent {
+    Child() { super(10); }
+}
+
+✔ Important Rule
+
+super() must be the first line in constructor.
+
+🟦 METHOD OVERRIDING – Most Important Concept in Interviews
+
+✔ Child class provides its own implementation of a method from the parent class.
+✔ Run-time polymorphism.
+
+✔ Why Do We Use Method Overriding?
+
+1️⃣ To provide specific behavior in child class
+2️⃣ To achieve runtime polymorphism
+3️⃣ To follow OOPS principle (Open/Closed)
+4️⃣ To implement dynamic method dispatch
+
+✔ Rules of Method Overriding (VERY IMPORTANT)
+✔ Rule 1: Method Signature must be same
+
+Same:
+
+method name
+
+return type
+
+parameters
+
+✔ Rule 2: Access Modifier cannot be reduced
+
+Parent → Child
+Allowed: increase visibility (private → default → protected → public)
+Not Allowed: decrease visibility
+
+Example ❌ WRONG:
+
+public void show() {}
+protected void show() {}   // ❌ Error
+
+✔ Rule 3: Private methods cannot be overridden
+
+Because private is not visible to child.
+
+✔ Rule 4: final methods cannot be overridden
+
+Since final means “cannot change”.
+
+✔ Rule 5: static methods cannot be overridden (they are hidden)
+
+Static belongs to class, not object.
+
+✔ Rule 6: Return type must be same (or covariant)
+
+Covariant → child class return type allowed.
+
+Example:
+
+class A {}
+class B extends A {}
+
+class Parent { A test() { return new A(); } }
+class Child extends Parent { B test() { return new B(); } }
+
+✔ Rule 7: Exception Rules
+
+Child can throw:
+
+same exception
+
+subclass exception
+
+no exception
+
+But cannot throw new checked exception.
+
+Example ❌ WRONG:
+
+class Parent { void test() throws IOException {} }
+class Child  { void test() throws Exception {} } // ❌ broader exception
+
+✔ Method Overriding Example (Best for Interview)
+class Bank {
+    int getRate() {
+        return 5;
+    }
+}
+
+class SBI extends Bank {
+    @Override
+    int getRate() {
+        return 7;
+    }
+}
+
+
+Runtime execution:
+
+Bank b = new SBI();
+System.out.println(b.getRate()); // 7
+
+🟦 What We Can Do in Overriding?
+
+✔ change method logic
+✔ increase visibility
+✔ use covariant return type
+✔ throw narrower exceptions
+✔ use @Override annotation
+
+🟥 What We Cannot Do?
+
+❌ cannot override private method
+❌ cannot override final method
+❌ cannot override static method
+❌ cannot reduce visibility
+❌ cannot change method signature
+
+🟦 INTERVIEW QUESTIONS (REAL INFOSYS / TCS / ACCENTURE)
+✔ Q1: Can constructor be overridden?
+
+No. Constructors are not inherited.
+
+✔ Q2: Difference between Overloading and Overriding?
+Overloading	Overriding
+Compile-time polymorphism	Runtime polymorphism
+Same method name, different parameters	Same signature
+Same class	Parent-child
+Return type may change	Return type same/covariant
+✔ Q3: Why overriding is runtime polymorphism?
+
+Because decision of which method to call is done at runtime, based on object type.
+
+✔ Q4: Can we override static methods?
+
+No → method hiding occurs.
+
+✔ Q5: Why super() is always first?
+
+Because parent must be initialized before child object.
+
+✔ Q6: Why multiple inheritance not allowed?
+
+Because of diamond problem → ambiguity.
+
+✔ Q7: Can we override a method with synchronized keyword?
+
+Yes, synchronized is not part of method signature.

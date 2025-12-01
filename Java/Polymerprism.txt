@@ -1,0 +1,217 @@
+ChatGPT said:
+
+Below is a complete, interview-focused, in-depth explanation of Polymorphism with all concepts, rules, and commonly asked Infosys/TCS/Accenture interview questions.
+I will explain slowly and clearly (Indian-English pace).
+
+✔ POLYMORPHISM (Many Forms)
+
+Polymorphism = same name → different forms (behavior changes).
+
+Java supports 2 types:
+
+1️⃣ Compile-time polymorphism → Method Overloading
+2️⃣ Runtime polymorphism → Method Overriding + Dynamic Dispatch
+
+🟦 1. COMPILE-TIME POLYMORPHISM (METHOD OVERLOADING)
+✔ What is Method Overloading?
+
+Same method name but different parameters inside same class.
+
+✔ Why we use?
+
+Increases readability
+
+Same action but different inputs
+
+Reduces code duplication
+
+✔ Valid Overloading
+
+Change:
+
+number of parameters
+
+type of parameters
+
+order of parameters
+
+✔ Example
+class Test {
+    void show(int a) {}
+    void show(String s) {}
+    void show(int a, int b) {}
+}
+
+✔ Important Interview Questions
+Q1: Can return type alone overload a method?
+
+❌ NO
+Compiler gets confused which method to call.
+
+int show() {}
+double show() {} // ❌ Not allowed
+
+Q2: Can we overload static methods?
+
+✔ Yes
+(Overloading depends on parameters, not static/non-static.)
+
+Q3: Can we overload main() method?
+
+✔ Yes
+But JVM calls only the one with String[] args.
+
+🟦 2. RUNTIME POLYMORPHISM (METHOD OVERRIDING)
+
+Child provides its own definition of a parent method.
+
+🟦 Dynamic Method Dispatch
+
+One of the biggest interview topics.
+
+✔ The decision of which overridden method to call is taken at runtime, based on the actual object type — not the reference type.
+
+Example:
+
+class A { void show() { System.out.println("A"); } }
+class B extends A { void show() { System.out.println("B"); } }
+
+A obj = new B();   // Upcasting
+obj.show();        // Prints "B" → runtime decision
+
+
+This is dynamic method dispatch.
+
+✔ Important Interview Questions
+Q1: Why is overriding runtime polymorphism?
+
+Because method call is resolved at runtime based on object type.
+
+Q2: Why we use dynamic dispatch?
+
+To write flexible code that works on parent type but executes child behavior.
+
+🟦 3. Covariant Return Types
+
+Child class method is allowed to return a subclass type of the parent method’s return type.
+
+✔ Example
+class A {}
+class B extends A {}
+
+class Parent {
+    A show() { return new A(); }
+}
+class Child extends Parent {
+    @Override
+    B show() { return new B(); } // Covariant return type
+}
+
+✔ Interview Questions
+Q1: Why covariant return types allowed?
+
+To support more specific return types during overriding.
+
+🟦 4. Operator Overloading (NOT Supported in Java)
+✔ Why Java does NOT support operator overloading?
+
+Because:
+
+Keeps language simple
+
+Avoids confusing code
+
+Reduces mistakes
+
+Java wanted a clean, readable syntax
+
+✔ Example of complexity (in C++)
+
+a + b → can do matrix add, string concat, integer add... too confusing.
+
+Java avoids this.
+
+✔ Only one operator is overloaded in Java:
+
+✔ + operator is overloaded for String concatenation.
+
+System.out.println("Hello" + "World");
+
+✔ What We Can Do (Allowed):
+
+✔ Use + for String concatenation
+✔ Overload methods
+✔ Overload constructors
+
+✔ What We Cannot Do (Not Allowed):
+
+❌ Cannot overload mathematical operators
+❌ Cannot use your own behavior for +, -, *, /
+❌ Cannot define new operators
+
+🟦 INTERVIEW QUESTIONS (Frequently asked in Infosys/TCS/Wipro/Accenture)
+✔ Q1: Difference between overloading and overriding?
+Overloading	Overriding
+Compile-time	Runtime
+Same name, different parameters	Same signature
+Same class	Parent-child
+Return type can differ	Return type same/covariant
+No inheritance required	Must use inheritance
+✔ Q2: Why main purpose of polymorphism?
+
+Flexibility
+
+Loose coupling
+
+Extensibility
+
+Reusable code
+
+✔ Q3: What is the real use of overriding in real projects?
+
+Example: Different banks with different rate of interest.
+
+✔ Q4: Can we override private method?
+
+❌ NO (Not visible to child).
+
+✔ Q5: Can we override static method?
+
+❌ NO → method hiding.
+
+✔ Q6: Can we override final method?
+
+❌ NO.
+
+✔ Q7: Can constructor participate in polymorphism?
+
+❌ No overriding, no polymorphism.
+
+✔ Q8: Can abstract methods be overridden?
+
+✔ Yes → must be overridden.
+
+🟦 Mini Coding Example Showing Full Polymorphism
+class Shape {
+    double area() { return 0; }
+}
+
+class Circle extends Shape {
+    double area() { return 3.14 * 5 * 5; }
+}
+
+class Square extends Shape {
+    double area() { return 4 * 4; }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Shape s;
+
+        s = new Circle();
+        System.out.println(s.area());
+
+        s = new Square();
+        System.out.println(s.area());
+    }
+}

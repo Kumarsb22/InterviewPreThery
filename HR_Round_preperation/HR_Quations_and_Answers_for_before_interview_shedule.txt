@@ -1,0 +1,198 @@
+ChatGPT said:
+
+Below is the exact real-time HR pre-screening call script, including the 20 most common questions HR asks BEFORE scheduling an interview, plus 2–3 perfect sample answers for each question.
+
+These are the questions HR uses to decide YES/NO for scheduling your technical interview—so answering them correctly is very important.
+
+✅ 20 Common HR Pre-Screening Questions (Before Scheduling Interview)
++ 2–3 Safe, Professional, Real-Time Answers for Each
+1️⃣ Can you walk me through your profile?
+✔ Answer 1:
+
+I have 3 years of total and relevant experience as a Java Backend Developer. I worked mainly with Java, Spring Boot, REST APIs, Microservices, and MySQL. I have hands-on experience in developing backend modules, deployments, and working in Agile teams.
+
+✔ Answer 2:
+
+I’m currently working on an e-governance project where I handle backend service development using Java and Spring Boot. My main role includes API development, database handling, and module ownership.
+
+2️⃣ What is your total and relevant experience?
+✔ Answer 1:
+
+My total experience is 3 years, and all of it is relevant to Java backend development.
+
+✔ Answer 2:
+
+I have 3 years of hands-on experience in Java, Spring Boot, and Microservices architecture.
+
+3️⃣ What is your current role and responsibilities?
+✔ Answer 1:
+
+I develop REST APIs, manage backend modules, handle database operations, and work with microservices.
+
+✔ Answer 2:
+
+I’m responsible for end-to-end module development including requirement understanding, development, testing, and deployment to UAT.
+
+4️⃣ What is your current company and employment type?
+✔ Answer 1:
+
+I am currently working at ____ as a full-time Java Developer.
+
+✔ Answer 2:
+
+I am working on a government project through ____ organization.
+
+5️⃣ What is your current CTC?
+✔ Answer 1:
+
+My current CTC is ₹X LPA.
+
+✔ Answer 2:
+
+My current compensation is X LPA fixed plus allowances.
+
+6️⃣ What is your expected CTC?
+✔ Answer 1:
+
+I am expecting around 30–40% hike based on my skills and role.
+
+✔ Answer 2:
+
+I am open to company standards but preferably around ₹9–10 LPA.
+
+7️⃣ What is your notice period?
+✔ Answer 1:
+
+My notice period is 30 days.
+
+✔ Answer 2:
+
+Officially it is 30 days, but I can negotiate early release to 15–20 days if required.
+
+8️⃣ Are you serving notice period right now?
+✔ Answer 1:
+
+Not currently. I will resign once I get an offer.
+
+✔ Answer 2:
+
+No, not yet. I will serve the full notice as per policy.
+
+9️⃣ Why are you looking for a job change?
+✔ Answer 1:
+
+I’m looking for better opportunities to work on scalable microservices and challenging backend projects.
+
+✔ Answer 2:
+
+I want to grow technically and professionally with a company that provides learning opportunities and modern tech stack.
+
+1️⃣0️⃣ What kind of job are you looking for?
+✔ Answer 1:
+
+A Java backend role with Spring Boot and Microservices.
+
+✔ Answer 2:
+
+A backend developer role with exposure to cloud, APIs, and microservices.
+
+1️⃣1️⃣ Do you have experience in Spring Boot?
+✔ Answer 1:
+
+Yes, I have 3 years of hands-on experience building REST APIs and microservices with Spring Boot.
+
+✔ Answer 2:
+
+I’ve used Spring Boot for all my backend module development and integrations.
+
+1️⃣2️⃣ Do you have microservices experience?
+✔ Answer 1:
+
+Yes, I’ve developed microservices, integrated them with config server, and implemented communication between services.
+
+✔ Answer 2:
+
+Yes, I worked in a microservice architecture environment on multiple modules.
+
+1️⃣3️⃣ Do you have experience in deployments?
+✔ Answer 1:
+
+Yes, I have experience deploying services in UAT using Docker.
+
+✔ Answer 2:
+
+I work with DevOps team but also handle basic deployment steps from my end.
+
+1️⃣4️⃣ What is your preferred job location?
+✔ Answer 1:
+
+I am open to Bangalore, Hyderabad, Pune, or remote.
+
+✔ Answer 2:
+
+I am flexible with any major IT location.
+
+1️⃣5️⃣ Are you open to relocation?
+✔ Answer 1:
+
+Yes, I am open to relocation.
+
+✔ Answer 2:
+
+Yes, based on job requirements.
+
+1️⃣6️⃣ Are you open to hybrid or WFO?
+✔ Answer 1:
+
+Yes, hybrid or WFO is fine.
+
+✔ Answer 2:
+
+I can adjust as per company policy.
+
+1️⃣7️⃣ Do you have any gaps in your career?
+✔ Answer 1:
+
+No, I don’t have any gaps.
+
+✔ Answer 2:
+
+I had a short gap due to personal reasons, but I was learning and improving skills.
+
+1️⃣8️⃣ Have you attended any interview with our company before?
+✔ Answer 1:
+
+No, this is my first time.
+
+✔ Answer 2:
+
+I attended once earlier, but it was long back.
+
+1️⃣9️⃣ What is your availability for technical interview?
+✔ Answer 1:
+
+I am available anytime tomorrow or day after.
+
+✔ Answer 2:
+
+I am available after 6 PM on weekdays or anytime on weekends.
+
+2️⃣0️⃣ Do you have any questions for me?
+✔ Answer 1:
+
+What is the JD and tech stack for this role?
+
+✔ Answer 2:
+
+What is the interview process flow?
+
+🎯 If You Answer These Correctly → HR Will Immediately Schedule The Interview
+
+These 20 questions decide whether you move forward.
+
+If you want, I can also give you:
+
+✅ Real-Time HR call script (full conversation)
+✅ HR WhatsApp/SMS conversation samples
+️‍🔥 One-page cheat sheet to memorize before HR call
+📄 Your customized answer sheet based on your actual experience

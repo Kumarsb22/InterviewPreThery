@@ -1,0 +1,268 @@
+ChatGPT said:
+
+Below are 20 Real-Time Interview Questions and Answers specifically tailored for a 3+ year experience Java developer who has worked on PUCC project migration from JSP/Servlet/JDBC → Spring Boot Microservices + Angular.
+
+These are practical, real-world questions you will be asked in interviews.
+
+✅ 20 Real-Time PUCC Project Migration Questions & Answers (3+ Years)
+
+(Spring Boot Microservices + Angular + PostgreSQL + Migration)
+
+🔹 1. Explain your PUCC project in short.
+
+Answer:
+PUCC (Pollution Under Control Certificate) is a government application used for registering pollution testing centers, verifying documents, approving centers, processing payments, and generating certificates.
+My role was to migrate the legacy application built using JSP, Servlets, JDBC, and monolithic architecture into Spring Boot microservices with Angular frontend and PostgreSQL.
+
+🔹 2. Why was the PUCC project migrated from JSP/Servlet to microservices?
+
+Answer:
+
+Old system was tightly coupled (difficult to enhance).
+
+Performance issues due to single monolith.
+
+Hard to scale for high traffic (state-wise users).
+
+No API layer for integration.
+
+Poor security, no JWT/OAuth.
+
+Difficult to maintain code and deploy updates.
+
+🔹 3. What were the main microservices created in the new PUCC system?
+
+Answer:
+
+Authentication Service (JWT)
+
+PUCC Center Management Service
+
+Document/Attachment Service
+
+Payment Service
+
+Notification Service
+
+Certificate Generation Service
+
+🔹 4. What challenges did you face while migrating JDBC code to Spring Data JPA?
+
+Answer:
+
+Converting handwritten SQL into entity relationships.
+
+Handling custom joins and native queries.
+
+Mapping DB tables with composite keys.
+
+Eliminating duplicate DAO logic.
+
+Ensuring ACID behavior with @Transactional.
+
+🔹 5. How did you ensure backward compatibility while migrating?
+
+Answer:
+
+Maintained old API responses until Angular team completed UI changes.
+
+Used feature flags for incremental rollout.
+
+Created middleware adapters for old URL formats.
+
+Released modules in phases: Auth → Document → Payment → Certificate.
+
+🔹 6. Explain one major bug you fixed in the payment module during migration.
+
+Answer:
+Bug: Duplicate transactions were happening when users clicked multiple times.
+Cause: Old application had no idempotency.
+Fix: Implemented unique Request-ID and locked transaction processing.
+Result: Duplicate payment reduced by 99%.
+
+🔹 7. How did you migrate file upload (documents) from file system to microservice architecture?
+
+Answer:
+
+Created a Document Service with REST API for upload/download.
+
+Stored files in file system / S3 / MinIO, metadata in PostgreSQL.
+
+Implemented validations (size, type, virus scan).
+
+Provided signed URLs for Angular UI.
+
+🔹 8. How did you secure your microservices?
+
+Answer:
+
+Used Spring Security + JWT for all services.
+
+Role-based authorization (Admin, Verifier, Center Owner).
+
+API Gateway for central authentication.
+
+Disabled CSRF for APIs.
+
+Used HTTPS across services.
+
+🔹 9. Explain the database changes during migration.
+
+Answer:
+
+Split monolithic DB into service-wise schemas.
+
+Used Flyway for version-based migrations.
+
+Normalized tables (removed redundant columns).
+
+Added indexes for better performance (center_id, status).
+
+🔹 10. How did you communicate between microservices?
+
+Answer:
+
+REST for synchronous communication.
+
+RabbitMQ/Kafka for async communication (Notifications).
+
+Feign Clients for internal API calls.
+
+🔹 11. What improvements were achieved after migration?
+
+Answer:
+
+40% faster response time.
+
+Cloud-ready microservices with independent scaling.
+
+Easy deployment (Docker + CI/CD).
+
+Better security and maintainability.
+
+🔹 12. How did you handle document approval workflow?
+
+Answer:
+
+Created separate APIs for:
+
+Upload document
+
+Verify document
+
+Reject document
+
+Added audit entries for each action.
+
+Triggered notifications after every stage.
+
+🔹 13. How did you improve performance in new PUCC system?
+
+Answer:
+
+Added DB indexes.
+
+Enabled caching for master data (districts, centers).
+
+Used pagination for large lists.
+
+Async notifications instead of blocking synchronous calls.
+
+🔹 14. How did you handle validation in Spring Boot?
+
+Answer:
+Using Bean Validation:
+
+@NotNull
+@Email
+@Size(max = 50)
+
+
+Also added custom validations for:
+
+Document type
+
+Center code
+
+Payment input fields
+
+🔹 15. How did you convert Servlet session management to JWT?
+
+Solution:
+
+Removed HttpSession usage.
+
+Used JWT token containing username + role.
+
+Token validated at API Gateway.
+
+No session stored at server (stateless).
+
+🔹 16. How did you migrate JSP pages to Angular Components?
+
+Steps:
+
+Converted JSP UI logic to Angular components.
+
+Implemented reactive forms for validation.
+
+Replaced JSTL loops with *ngFor.
+
+Connected Angular with Spring Boot REST APIs.
+
+Introduced routing guards for role-based screens.
+
+🔹 17. What logging approach did you use?
+
+Answer:
+
+Used Logback + SLF4J.
+
+Correlation ID for tracking requests.
+
+Logged at: info, warn, error levels.
+
+Centralized logs using ELK.
+
+🔹 18. How did you test your microservices?
+
+Answer:
+
+JUnit + Mockito for unit tests.
+
+Testcontainers for DB tests.
+
+Postman collection for API testing.
+
+Integration tests for workflows (Document Upload → Verification → Payment).
+
+🔹 19. How did you manage configuration of multiple services?
+
+Answer:
+Using Spring Cloud Config Server:
+
+Centralized application.yml
+
+Environment-based configs (dev/test/prod).
+
+Auto reload using Actuator refresh.
+
+🔹 20. Describe one major challenge in PUCC migration and how you solved it.
+
+Example Answer:
+Challenge: Old monolithic code had no proper documentation and business rules were mixed inside JSP.
+Solution:
+
+Analyzed JSP + Servlet + SQL queries.
+
+Conducted multiple sessions with domain experts.
+
+Extracted hidden rules and created microservice-specific workflows.
+Result:
+Clear separation of business logic, easier maintenance, and faster enhancements.
+
+⭐ Want me to prepare a project explanation script for your interview?
+
+Like a 2–3 minute “Tell me about your project” answer for PUCC?
+
+I can prepare it perfectly for you.

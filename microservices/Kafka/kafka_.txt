@@ -1,0 +1,10 @@
+to run kafka and zookeeper sever
+kafka softvare folder example kafka>
+//		.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+//		.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+1)one kafa producer app the same topic can be subcrbe two kafka consumer app if same group id partion in topic 1)partion to first kafka consumer and respectivly.
+2)if there is the same topic no partion same message should be subscribe all consumer kafa app then each should have different group id then it is possible.
+
+If you want both apps to get all messages → give them different group IDs.
+If you want load balancing between them → keep same group ID, but increase partitions.
