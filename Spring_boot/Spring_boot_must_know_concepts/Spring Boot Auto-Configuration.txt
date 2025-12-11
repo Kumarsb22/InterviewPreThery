@@ -1,0 +1,295 @@
+.
+
+🟩 1️⃣ How Spring Boot Finds Auto-Configuration
+
+Spring Boot automatically configures beans by scanning files inside JARs that you add as starter dependencies.
+
+✔ Mechanism (Internals)
+
+Earlier versions (Spring Boot 1.x–2.x):
+
+META-INF/spring.factories
+
+
+Since Spring Boot 3+ (Java 17+), auto-configurations are declared inside:
+
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+
+📌 How the process works
+
+Spring Boot starts the application.
+
+It checks classpath.
+
+It loads auto-configuration classes from starter JARs.
+
+It applies conditional annotations to decide which beans to create.
+
+It creates only the necessary beans dynamically.
+
+✔ This process removes XML configuration and manual bean creation, reducing boilerplate.
+
+🟦 2️⃣ spring.factories vs AutoConfiguration.imports
+✔ Old Method (Spring Boot 2.x and below)
+
+The file:
+
+META-INF/spring.factories
+
+
+Contains entries like:
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,\
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+
+
+Spring Boot loads these classes for auto-configuration.
+
+✔ New Method (Spring Boot 3.x)
+
+The file:
+
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+
+
+Contains:
+
+org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+
+
+This is lightweight, faster to load, and supports AOT (Ahead-of-Time processing).
+
+🟩 3️⃣ Conditional Annotations
+
+Auto-configurations do NOT run blindly.
+They are triggered only when conditions are met.
+
+Most important ones:
+
+🔷 @ConditionalOnMissingBean
+
+Create a bean only if it's not already defined.
+
+Example
+
+Spring Boot creates its own ObjectMapper, unless you define one manually.
+
+@Bean
+@ConditionalOnMissingBean
+public ObjectMapper objectMapper() {
+    return new ObjectMapper();
+}
+
+
+✔ Ensures developers can override auto-configured beans.
+
+🔷 @ConditionalOnClass
+
+Load configuration only when a specific class is on the classpath.
+
+Example:
+DataSourceAutoConfiguration loads only when javax.sql.DataSource is present.
+
+@ConditionalOnClass(DataSource.class)
+public class DataSourceConfig { }
+
+
+✔ Prevents unnecessary configs.
+
+🔷 @ConditionalOnProperty
+
+Enable/disable auto-config based on application.properties.
+
+Example:
+
+@ConditionalOnProperty(name = "cache.enabled", havingValue = "true")
+public class CacheConfig { }
+
+
+In application.properties:
+
+cache.enabled=true
+
+
+✔ Used for toggling features.
+
+Other Conditional Annotations (if asked)
+
+@ConditionalOnBean
+
+@ConditionalOnResource
+
+@ConditionalOnWebApplication
+
+@ConditionalOnNotWebApplication
+
+🟧 4️⃣ Starter Dependencies (Very Important)
+
+When you add a starter like:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+
+Spring Boot automatically pulls:
+
+Tomcat
+
+DispatcherServlet
+
+Web MVC
+
+JSON support
+
+Validation
+
+Logging (SLF4J + Logback)
+
+✔ All of these come with their own auto-configuration classes.
+
+🟦 Why starters are powerful?
+
+They avoid version conflicts
+
+They bring all required libraries
+
+They include auto-configurations
+
+They turn Spring from configuration-heavy → production-ready.
+
+🟩 5️⃣ Custom Auto-Configuration
+
+You can build your own auto-config module.
+
+Steps:
+Step 1: Create a configuration class
+@Configuration
+@ConditionalOnClass(MyService.class)
+public class MyAutoConfig {
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MyService myService() {
+        return new MyService();
+    }
+}
+
+Step 2: Register it
+
+For Spring Boot 3:
+
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+
+
+Add:
+
+com.demo.config.MyAutoConfig
+
+
+✔ Now whenever your dependency is included, this bean is auto-configured.
+
+🟥 6️⃣ How to Exclude Auto-Configuration
+Method 1: In Main Class
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+public class App { }
+
+Method 2: In properties
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+Method 3: Exclude specific starter dependency
+
+Do not include its starter.
+
+🟦 Top Interview Questions + Best Answers
+🔥 Q1: How does Spring Boot know which beans to create?
+✔ Answer
+
+Spring Boot reads auto-configuration classes listed inside:
+
+AutoConfiguration.imports (Spring Boot 3)
+spring.factories (older versions)
+
+
+These classes contain @Configuration + conditional annotations like:
+
+@ConditionalOnClass
+
+@ConditionalOnMissingBean
+
+@ConditionalOnProperty
+
+Only if conditions match, beans are created.
+
+✔ This dynamic, condition-based bean creation is the heart of auto-configuration.
+
+🔥 Q2: How do starter dependencies work?
+✔ Answer
+
+A starter is a dependency bundle containing:
+
+Required libraries
+
+Auto-configuration classes
+
+Version management
+
+When you include a starter, all required features and beans are automatically configured.
+
+✔ This removes manual configuration and reduces boilerplate.
+
+🔥 Q3: How do you disable a specific auto-configuration?
+✔ Answer
+
+3 ways:
+
+1️⃣ Use exclude in @SpringBootApplication
+2️⃣ Use property spring.autoconfigure.exclude
+3️⃣ Avoid adding the corresponding starter dependency
+
+Example:
+
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+
+🔥 Q4: Why do we need auto-configuration?
+✔ Answer
+
+Before Spring Boot:
+
+❌ Manual XML
+❌ Manual DispatcherServlet
+❌ Manual DataSource
+❌ Manual Hibernate config
+❌ Manual Tomcat config
+
+Spring Boot provides:
+
+✔ Zero-XML minimal configuration
+✔ Intelligent defaults
+✔ Conditional bean creation
+✔ Steady conventions
+✔ Production-ready features
+
+It saves writing 100s of lines of config.
+
+🔥 Q5: How does Spring Boot reduce boilerplate?
+✔ Answer
+
+Starters bring all required dependencies
+
+AutoConfiguration creates beans dynamically
+
+No need for XML
+
+No need to configure Tomcat manually
+
+No need to configure Jackson, Hibernate, DataSource manually
+
+Auto-wiring simplified
+
+application.properties controls everything
+
+✔ Developers only write business logic.

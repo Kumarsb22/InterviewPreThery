@@ -1,0 +1,350 @@
+🟩 3️⃣ Spring Boot REST API Development — In-Depth Interview Notes
+🟦 1. @RestController vs @Controller
+✔ @Controller
+
+Used for MVC web applications.
+
+Returns views (HTML/JSP/Thymeleaf).
+
+Methods must use @ResponseBody to return JSON.
+
+@Controller
+public class WebController {
+    @GetMapping("/home")
+    public String home() {
+        return "home.html";  // returns view
+    }
+}
+
+✔ @RestController
+
+Combination of @Controller + @ResponseBody.
+
+Every method returns JSON/XML by default.
+
+Used for REST APIs.
+
+@RestController
+public class EmployeeController {
+    @GetMapping("/emp")
+    public Employee getEmp() {
+        return new Employee(1,"John");
+    }
+}
+
+⭐ Interview Answer
+
+@RestController is used to build REST APIs and returns JSON by default.
+@Controller is used for MVC and returns views.
+@RestController = @Controller + @ResponseBody.
+
+🟦 2. Request Types (GET, POST, PUT, DELETE)
+HTTP Method	Purpose	Idempotency
+GET	Fetch data	Yes
+POST	Create resource	No
+PUT	Update resource (complete update)	Yes
+PATCH	Partial update	No
+DELETE	Remove resource	Yes
+Example
+@RestController
+@RequestMapping("/emp")
+public class EmpController {
+
+    @GetMapping("/{id}")
+    public Employee getEmp(@PathVariable int id) { ... }
+
+    @PostMapping
+    public Employee create(@RequestBody Employee emp) { ... }
+
+    @PutMapping("/{id}")
+    public Employee update(@PathVariable int id, @RequestBody Employee emp) { ... }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) { ... }
+}
+
+🟦 3. RequestBody vs RequestParam vs PathVariable
+✔ @PathVariable
+
+Used when the value is part of the URL path.
+
+GET /emp/10
+
+@GetMapping("/emp/{id}")
+public Emp getEmp(@PathVariable int id)
+
+✔ @RequestParam
+
+Used for query parameters.
+
+GET /emp?id=10
+
+@GetMapping("/emp")
+public Emp getEmp(@RequestParam int id)
+
+✔ @RequestBody
+
+Used for JSON request payload.
+
+POST /emp
+{
+  "name": "John",
+  "salary": 50000
+}
+
+@PostMapping("/emp")
+public Emp create(@RequestBody Emp emp)
+
+⭐ Interview Answer
+
+@PathVariable → value from URL
+@RequestParam → value from query param
+@RequestBody → JSON body input
+
+🟦 4. Status Codes (Most Asked)
+Code	Meaning
+200 OK	Success
+201 CREATED	Resource created
+204 NO CONTENT	No response
+400 BAD REQUEST	Validation failed
+401 UNAUTHORIZED	Not logged in
+403 FORBIDDEN	No permission
+404 NOT FOUND	Resource not found
+500 INTERNAL SERVER ERROR	Server crash error
+🟦 5. ResponseEntity (Very Important)
+
+Used to return:
+
+Status code
+
+Headers
+
+Body
+
+@PostMapping("/emp")
+public ResponseEntity<Employee> create(@RequestBody Employee emp){
+    return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(emp);
+}
+
+🟦 6. Global Exception Handling — @ControllerAdvice
+Why used?
+
+To avoid repeating try/catch in every controller.
+
+To send standardized API error response.
+
+Example
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    public ResponseEntity<?> handleEmpNotFound(EmployeeNotFoundException ex) {
+
+        ApiError error = new ApiError(ex.getMessage(), LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+}
+
+⭐ Interview Answer
+
+@ControllerAdvice + @ExceptionHandler
+helps to build a centralized exception handling layer
+and return custom error responses.
+
+🟦 7. Validation — @Valid | @NotNull | @Size
+Example DTO
+public class EmployeeDTO {
+
+    @NotNull
+    private String name;
+
+    @Min(1000)
+    private double salary;
+
+    @Size(min=10, max=10)
+    private String mobile;
+}
+
+Controller
+@PostMapping("/emp")
+public ResponseEntity<?> save(@Valid @RequestBody EmployeeDTO dto) {
+    return ResponseEntity.ok(dto);
+}
+
+
+If validation fails → automatic 400 BAD REQUEST.
+
+🟦 8. Filters & Interceptors
+✔ Filters (Servlet Level)
+
+Runs before & after request.
+
+Useful for logging, security, CORS.
+
+Works on Servlet level.
+
+✔ Interceptors (Spring Level)
+
+Runs before controller and after response.
+
+Useful for auth, modifying request attributes, token validation.
+
+Filter Example
+@Component
+public class LoggingFilter implements Filter {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain){
+        System.out.println("Request received");
+        chain.doFilter(req, res);
+    }
+}
+
+Interceptor Example
+@Component
+public class AuthInterceptor implements HandlerInterceptor {
+    public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler){
+        return true;
+    }
+}
+
+🟦 9. Idempotency (Top Interview Hot Topic)
+✔ Meaning
+
+A request is idempotent if calling it multiple times produces the same result.
+
+Method	Idempotent?	Why?
+GET	Yes	Same fetch result
+PUT	Yes	Same update result
+DELETE	Yes	Deleting again changes nothing
+POST	❌ No	Creates multiple records
+Real-Time Example (Payments)
+
+Payment API must be idempotent.
+
+Use idempotency key (UUID) to avoid duplicate charges.
+
+🟦 10. Global CORS (Cross-Origin)
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("*")
+                        .allowedOrigins("*")
+                        .allowedHeaders("*");
+            }
+        };
+    }
+}
+
+🟦 11. DTO Pattern (Most Asked)
+Why DTO?
+
+Do not expose entity directly.
+
+Separate API model from database model.
+
+Avoid lazy loading issues.
+
+Example
+
+Entity → DTO → Service → Controller
+
+class EmployeeDTO {
+   private String name;
+   private double salary;
+}
+
+🟩 Top 20 Interview Questions — With Answers
+1️⃣ Difference between @Controller and @RestController?
+
+Explained above.
+
+2️⃣ How to do global exception handling?
+
+Using @ControllerAdvice + @ExceptionHandler.
+
+3️⃣ How do you validate request body?
+
+Using @Valid and annotations like @NotNull, @Size.
+
+4️⃣ What is idempotency?
+
+Repeated requests give same output.
+
+5️⃣ What is ResponseEntity used for?
+
+To send custom response (status+body+headers).
+
+6️⃣ Difference Between RequestParam and PathVariable?
+
+RequestParam → Query parameter
+PathVariable → URL segment
+
+7️⃣ What is REST?
+
+Representational State Transfer
+Stateless, resource-based API.
+
+8️⃣ What is statelessness?
+
+Server does not store client session state.
+
+9️⃣ How to send standardized error response?
+
+Use ControllerAdvice and custom error class.
+
+🔟 Why do we use DTOs?
+
+To avoid exposing entities, ensure loose coupling.
+
+11️⃣ How CORS works?
+
+Allows cross-origin communication.
+
+12️⃣ What is REST API versioning?
+
+URI versioning, header versioning, param versioning.
+
+13️⃣ Difference between PUT and PATCH?
+
+PUT → full update
+PATCH → partial update
+
+14️⃣ How do filters and interceptors differ?
+
+Filters → servlet-level
+Interceptors → Spring-level
+
+15️⃣ What is ResponseStatusException?
+
+Throw exception with status code.
+
+16️⃣ What is @ExceptionHandler?
+
+Handles specific exception.
+
+17️⃣ Why APIs should return meaningful status codes?
+
+Helps client understand result of request.
+
+18️⃣ What is HATEOAS?
+
+Links inside REST response (rarely used in companies).
+
+19️⃣ How do you secure REST APIs?
+
+JWT
+
+Spring Security
+
+OAuth2
+
+20️⃣ What is Global Pre-Filter?
+
+Used in gateway for logging/security.

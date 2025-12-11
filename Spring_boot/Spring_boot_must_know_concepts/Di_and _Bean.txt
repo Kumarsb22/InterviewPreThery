@@ -1,0 +1,398 @@
+🟩 2️⃣ Dependency Injection & Bean Management (In-Depth)
+
+Spring works internally on IoC (Inversion of Control) and DI (Dependency Injection).
+
+🟦 A. Bean Lifecycle (Very Important)
+✔ Full Lifecycle Sequence
+
+Object Instantiation
+
+Dependency Injection (constructor/setter)
+
+Aware Interfaces (optional)
+
+BeanNameAware
+
+ApplicationContextAware
+
+BeanPostProcessor (before init)
+
+@PostConstruct or init-method
+
+Bean is ready for use
+
+Context closes → @PreDestroy or destroy-method
+
+BeanPostProcessor (after destroy)
+
+✔ JVM-level vs Spring-level lifecycle
+
+JVM lifecycle → class loading → object creation → GC
+
+Spring lifecycle → bean creation → wiring → init → destroy
+
+Spring adds a controlled lifecycle layer.
+
+📘 Example
+@Component
+public class MyBean {
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean init...");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Bean destroy...");
+    }
+}
+
+
+✔ These run automatically.
+
+🟦 B. Init Method
+
+Alternate way instead of @PostConstruct.
+
+@Bean(initMethod = "setup")
+public MyService service() {
+    return new MyService();
+}
+
+
+Inside target class:
+
+public void setup() {
+    System.out.println("Custom init method");
+}
+
+
+✔ Preferred when using @Configuration + @Bean.
+
+🟦 C. Destroy Method
+@Bean(destroyMethod = "cleanup")
+public MyService service() {
+    return new MyService();
+}
+
+
+Runs when application context shuts down.
+
+✔ Useful for releasing resources (DB Connections, ThreadPools).
+
+🟩 D. Bean Scopes (ALL IMPORTANT)
+✔ 1. Singleton (Default)
+
+Only one object per entire Spring container.
+
+Used for:
+
+Services
+
+Repositories
+
+Controllers
+
+@Scope("singleton")
+
+✔ 2. Prototype
+
+A new object is created every time it's requested.
+
+Used for:
+
+State-based operations
+
+Request-level objects
+
+@Scope("prototype")
+
+
+⚠ Destroy method will NOT run for prototype beans!
+
+✔ 3. Request Scope
+
+One bean instance per HTTP request.
+
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
+
+
+Used in:
+
+Web applications
+
+Request-specific data
+
+✔ 4. Session Scope
+
+One bean per user session.
+
+@Scope(value = WebApplicationContext.SCOPE_SESSION)
+
+
+Used for:
+
+User preferences
+
+Cart session objects
+
+🟦 E. Bean Creation—Annotations
+
+Spring creates beans through:
+
+✔ @Component
+
+Generic, general-purpose bean.
+
+Used for:
+
+Helpers
+
+Utils
+
+Any generic class
+
+✔ @Service
+
+Indicates business logic.
+
+🧠 Internally, same as @Component
+BUT:
+
+Better for readability
+
+AOP applies transaction boundaries around @Service
+
+✔ @Repository
+
+Used for DAO layer.
+
+Extra features:
+
+Converts SQLExceptions → Spring DataAccessException
+
+Easy to manage persistence layer
+
+✔ @Configuration
+
+Class that contains @Bean definitions.
+
+Spring makes it a CGLIB proxy to ensure singleton behavior for beans.
+
+✔ @Bean
+
+Used to create beans manually.
+
+@Configuration
+public class AppConfig {
+    @Bean
+    public EmployeeService employeeService() {
+        return new EmployeeService();
+    }
+}
+
+
+✔ Used for third-party classes
+✔ Used when constructor parameters need manual setup
+✔ Used to override auto-configured beans
+
+🟦 F. Circular Dependency (Very Frequently Asked)
+✔ Example
+@Service
+class A {
+    @Autowired B b;
+}
+
+@Service
+class B {
+    @Autowired A a;
+}
+
+
+This causes circular reference.
+
+✔ How Spring Solves It
+
+Spring uses 3-level caching:
+
+Singleton Objects
+
+Early Singleton Objects
+
+Singleton Factory Objects
+
+Spring injects a proxy temporarily → breaks the loop.
+
+❌ When it fails?
+
+Constructor injection (hard dependency)
+
+When proxies cannot be created
+
+When circular dependency is too deep
+
+✔ Solutions
+
+Use constructor injection → detects problems early
+
+Use @Lazy on one of the injections
+
+Use setter injection
+
+Break the logic into another service
+
+🟦 G. Lazy Initialization
+✔ Meaning
+
+Bean is created only when used first time, not at application startup.
+
+@Lazy
+@Component
+public class HeavyBean { }
+
+
+Used when:
+
+Bean is expensive
+
+Bean is rarely used
+
+To improve startup time
+
+🟦 H. @Primary vs @Qualifier
+
+Sometimes two beans of same type exist:
+
+@Bean
+public Vehicle car() { return new Car(); }
+
+@Bean
+public Vehicle bike() { return new Bike(); }
+
+✔ @Primary
+
+Spring injects this bean by default.
+
+@Primary
+@Bean
+public Vehicle car() { return new Car(); }
+
+✔ @Qualifier
+
+Specify which one you want:
+
+@Autowired
+@Qualifier("bike")
+Vehicle vehicle;
+
+🟦 I. Profile-Based Beans
+
+Used for different environments:
+
+dev
+
+test
+
+prod
+
+Example:
+@Configuration
+@Profile("dev")
+public class DevConfig { }
+
+
+Activate profile:
+
+spring.profiles.active=dev
+
+
+✔ Perfect for real microservice deployments.
+
+🟩 🔥 TOP INTERVIEW QUESTIONS + ANSWERS
+1️⃣ How does DI work internally?
+✔ Answer
+
+DI is managed by the BeanFactory / ApplicationContext.
+Steps:
+
+Scan packages for components
+
+Identify beans
+
+Instantiate using constructor
+
+Inject dependencies using:
+
+Constructor
+
+Setter
+
+Field
+
+Post-process lifecycle (init)
+
+Return ready bean
+
+Spring container controls object creation → IoC.
+
+2️⃣ Constructor vs Setter Injection – Which is better?
+✔ Best Answer (Interview Winning)
+
+Constructor injection is preferred.
+
+It creates immutable objects.
+
+Mandatory dependencies must be passed.
+
+Helps detect circular dependencies.
+
+Works smoothly with Lombok.
+
+Setter injection is used when:
+
+Optional dependencies
+
+Reconfiguration needed after creation
+
+3️⃣ How to solve circular dependency?
+✔ Solutions
+
+Prefer constructor injection → detects loop early
+
+Add @Lazy
+
+Break service into separate classes
+
+Use setter injection
+
+Avoid bidirectional dependencies in design
+
+4️⃣ Why @Service vs @Component?
+
+✔ Both create beans
+✔ @Service is semantic (business logic)
+✔ AOP proxies apply better to @Service
+✔ @Repository adds exception translation
+✔ @Controller handles web requests
+
+So layers become clean and readable.
+
+5️⃣ What is Bean Scope?
+✔ Answer
+
+Scope defines how many objects Spring should create for a bean.
+
+Most important:
+
+Singleton → 1 object for entire app
+
+Prototype → new instance for each request
+
+Request / Session → Web specific
+
+6️⃣ What is @Primary?
+✔ Answer
+
+Used when multiple beans of same type exist.
+Spring chooses @Primary bean automatically unless overridden by @Qualifier.
