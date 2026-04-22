@@ -21,7 +21,7 @@ spring:
    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 server:
- port: 9095
+ port: 9096
 
 management:
        endpoints:
